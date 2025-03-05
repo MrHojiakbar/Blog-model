@@ -28,7 +28,7 @@ messageRouter.post('/message', (req, res) => {
 });
 
 messageRouter.post("/delete/:index", (req, res) => {
-    let index = parseInt(req.params.index);
+    let index = +req.params.index
     let data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
     if (index >= 0 && index < data.length) { 
@@ -37,6 +37,18 @@ messageRouter.post("/delete/:index", (req, res) => {
     }
 
     res.redirect("/");
+});
+
+messageRouter.post("/update/:index", (req, res) => {
+    let index = +req.params.index
+    let data=JSON.parse(fs.readFileSync(filePath,"utf-8"))
+    if (index >= 0 && index < data.length && req.body!="") {
+        let Message=(req.body).message
+        data[index].content=Message
+        fs.writeFileSync(filePath,JSON.stringify(data,null,4))
+    }
+
+    return res.redirect("/");
 });
 
 module.exports=messageRouter
