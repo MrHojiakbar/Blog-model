@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        main{
+            /* display: flex; */
+            justify-content: center;
+            width: 500px;
+            height: 800px;
+            background-color: rgb(49, 45, 94);
+            position: relative;
+        }
+        .blog_info{
+            padding: 20px;
+        }
+        .blog_info h3{
+            text-align: center;
+            color: white;
+        }
+        .send{
+            position: absolute;
+            bottom: 0;
+        }
+        .send input{
+            width: 436px;
+            height: 40px;
+        }
+        .send button{
+            height: 40px;
+        }
+        .messages{
+            position: absolute;
+            bottom: 100px;
+            right: 50px;
+        }
+        ul{
+            list-style-type: none;
+            gap: 30px;
+        }
+        li{
+            background-color: white;
+            padding: 15px;
+            width: 250px;
+            max-width: 250px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+        }
+        .libox{
+            display: flex;
+            gap: 10px;
+        }
+        .delete button{
+            width: 40px;
+            height: 49px;
+            border-radius: 5px;
+            border: 0;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <main>
+        <header>
+            <div class="blog_info">
+                <h3><%= blog_name %></h3>
+            </div>
+            <hr>
+            <div class="messages">
+                <ul>
+                    <% data.forEach((obj,index) => { %>
+                        <div class="libox">
+                            <li><%= obj.content %></li>
+                            <form action="/delete/<%= index %>" method="POST" style="display: inline;" class="delete">
+                                <button type="submit">❌</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                </ul>
+            </div>
+            <form action="/message" method="POST" class="send">
+                <input type="text" placeholder="message" name="message">
+                <button type="submit">Send ✈️</button>
+            </form>
+        </header>
+    </main>
+    
+</body>
+</html>
