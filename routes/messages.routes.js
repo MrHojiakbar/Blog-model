@@ -42,6 +42,7 @@ messageRouter.post("/delete/:index", (req, res) => {
 messageRouter.post("/update/:index", (req, res) => {
     let index = +req.params.index
     let data=JSON.parse(fs.readFileSync(filePath,"utf-8"))
+    console.log(index)
     if (index >= 0 && index < data.length && req.body!="") {
         let Message=(req.body).message
         data[index].content=Message

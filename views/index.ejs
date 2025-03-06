@@ -5,52 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: sans-serif;
         }
-        body{
+        body {
             background-color: black;
             display: flex;
             padding-top: 100px;
             justify-content: center;
         }
-        main{
+        main {
             width: 500px;
             height: 800px;
             background-color: rgb(49, 45, 94);
             position: relative;
         }
-        .blog_info{
+        .blog_info {
             padding: 20px;
         }
-        .blog_info h3{
+        .blog_info h3 {
             text-align: center;
             color: white;
         }
-        .send{
+        .send {
             position: absolute;
             bottom: 0;
         }
-        .send input{
+        .send input {
             width: 436px;
             height: 40px;
         }
-        .send button{
+        .send button {
             height: 40px;
         }
-        .messages{
+        .messages {
             position: absolute;
             bottom: 100px;
             right: 10px;
         }
-        ul{
+        ul {
             list-style-type: none;
             gap: 30px;
         }
-        li{
+        li {
             background-color: white;
             padding: 15px;
             width: 250px;
@@ -59,11 +59,11 @@
             margin-bottom: 10px;
             display: flex;
         }
-        .libox{
+        .libox {
             display: flex;
             gap: 10px;
         }
-        .delete button{
+        .delete button {
             width: 40px;
             height: 49px;
             border-radius: 5px;
@@ -91,7 +91,7 @@
             float: right;
             cursor: pointer;
         }
-        .sendData{
+        .sendData {
             width: 70px;
             height: 49px;
             border-radius: 5px;
@@ -101,21 +101,21 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .updateText{
+        .updateText {
             width: 436px;
             height: 49px;
         }
-        #openModal{
-            width: 40px;
+        .update-btn {
+            width: 70px;
             height: 49px;
             border-radius: 5px;
             border: 0;
             cursor: pointer;
+            background-color: lightblue;
         }
     </style>
 </head>
 <body>
-
 
     <main>
         <header>
@@ -125,16 +125,17 @@
             <hr>
             <div class="messages">
                 <ul>
-                    <% data.forEach((obj,index) => { %>
+                    <% data.forEach((obj, index) => { %>
                         <div class="libox">
                             <li><%= obj.content %></li>
                             <form action="/delete/<%= index %>" method="POST" style="display: inline;" class="delete">
                                 <button type="submit">❌</button>
                             </form>
-                            <button id="openModal">update</button>
-                            <div id="myModal" class="modal">
+                            <button class="update-btn" data-index="<%= index %>">Update</button>
+                            
+                            <div id="modal-<%= index %>" class="modal">
                                 <div class="modal-content">
-                                    <span class="close">&times;</span>
+                                    <span class="close" data-index="<%= index %>">&times;</span>
                                     <form action="/update/<%= index %>" method="POST" class="update">
                                         <input type="text" placeholder="Enter text..." class="updateText" name="message">
                                         <button type="submit" class="sendData">Submit</button>
@@ -152,20 +153,26 @@
         </header>
     </main>
 
-
     <script>
-        const modal = document.querySelector(".modal");
-        const btn = document.getElementById("openModal");
-        const span = document.getElementsByClassName("close")[0];
-        
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const updateButtons = document.querySelectorAll(".update-btn");
+            const closeButtons = document.querySelectorAll(".close");
+
+            updateButtons.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const index = btn.getAttribute("data-index");
+                    document.getElementById(`modal-${index}`).style.display = "block";
+                });
+            });
+
+            closeButtons.forEach((close) => {
+                close.addEventListener("click", function () {
+                    const index = close.getAttribute("data-index");
+                    document.getElementById(`modal-${index}`).style.display = "none";
+                });
+            });
+        });
     </script>
-    
+
 </body>
 </html>
