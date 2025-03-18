@@ -128,7 +128,7 @@
                     <% data.forEach((obj, index) => { %>
                         <div class="libox">
                             <li><%= obj.content %></li>
-                            <form action="/delete/<%= index %>" method="POST" style="display: inline;" class="delete">
+                            <form action="/delete/<%= obj.id %>" method="POST" style="display: inline;" class="delete">
                                 <button type="submit">❌</button>
                             </form>
                             <button class="update-btn" data-index="<%= index %>">Update</button>
@@ -136,7 +136,7 @@
                             <div id="modal-<%= index %>" class="modal">
                                 <div class="modal-content">
                                     <span class="close" data-index="<%= index %>">&times;</span>
-                                    <form action="/update/<%= index %>" method="POST" class="update">
+                                    <form action="/update/<%= obj.id %>" method="POST" class="update">
                                         <input type="text" placeholder="Enter text..." class="updateText" name="message">
                                         <button type="submit" class="sendData">Submit</button>
                                     </form> 
@@ -172,6 +172,8 @@
                 });
             });
         });
+
+
     </script>
 
 </body>

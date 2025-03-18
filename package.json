@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
-    "start:dev": "nodemon main.js"
+    "start": "node src/main.js",
+    "start:dev": "nodemon src/main.js"
   },
   "keywords": [],
   "author": "Hojiakbar",
@@ -17,6 +17,7 @@
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "env": "^0.0.2",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "pg": "^8.14.0"
   }
 }
